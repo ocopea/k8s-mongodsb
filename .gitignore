@@ -1,0 +1,22 @@
+# Visual studio generated files
+/.vscode
+
+# Swagger generated files
+/cmd/*
+/restapi/*
+!/restapi/configure_k8s_mongodsb.go
+!/restapi/impl
+/models/*
+
+# Maven generated files
+**/target/
+
+# Eclipse generated files
+.project
+.classpath
+.settings/
+**/.project
+**/.classpath
+**/.gitignore
+**/.settings/
+".git

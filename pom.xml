@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <properties>
+        <mongo.executables.version>3.3.14</mongo.executables.version>
+	    <mongo.executables.location>${project.build.directory}/mongo</mongo.executables.location>
+	    <mongo.executables.artifactId>k8s-dsb-mongo-executables</mongo.executables.artifactId>
+    </properties>
+
+    <groupId>com.emc.ocopea.mongodsb</groupId>
+    <version>0.1-SNAPSHOT</version>
+    <artifactId>k8s-mongodsb</artifactId>
+    <packaging>pom</packaging>
+    <name>Kubernetes MongoDB DSB</name>
+    <description>Mongo DSB for running on mongo in a container on Kubernetes</description>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-mongo-executables</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${mongo.executables.location}</outputDirectory>
+                            <includeArtifactIds>${mongo.executables.artifactId}</includeArtifactIds>
+                            <stripVersion>true</stripVersion>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <useBuildFilters>true</useBuildFilters>
+                    <outputDirectory>${project.build.directory}/docker</outputDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>fix-shell-permissions--rename-mongo-executables</id>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <target>
+                                <chmod file="target/mongo/**.bin" perm="+x" />
+                                <move todir="${mongo.executables.location}">
+                                    <fileset dir="${mongo.executables.location}" />
+                                    <mapper type="glob" from="${mongo.executables.artifactId}-*.bin" to="*" />
+				                </move>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.emc.ocopea.util</groupId>
+            <artifactId>${mongo.executables.artifactId}</artifactId>
+            <version>${mongo.executables.version}</version>
+    	    <classifier>mongo</classifier>
+	        <type>bin</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.emc.ocopea.util</groupId>
+            <artifactId>${mongo.executables.artifactId}</artifactId>
+            <version>${mongo.executables.version}</version>
+    	    <classifier>mongorestore</classifier>
+	        <type>bin</type>
+        </dependency>
+        <dependency>
+            <groupId>com.emc.ocopea.util</groupId>
+            <artifactId>${mongo.executables.artifactId}</artifactId>
+            <version>${mongo.executables.version}</version>
+    	    <classifier>mongodump</classifier>
+	        <type>bin</type>
+        </dependency>
+
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>ocopea-dependencies</id>
+            <name>dependencies</name>
+            <url>https://raw.githubusercontent.com/ocopea/artifactory/repository/</url>
+        </repository>
+    </repositories>
+
+
+</project>
+
