@@ -1,0 +1,18 @@
+.git
+.gitignore
+LICENSE
+VERSION
+README.md
+.idea
+*/*/target
+*.iml
+
+# Visual studio generated files
+/.vscode
+
+# Swagger generated files
+/cmd/*
+/restapi/*
+!/restapi/configure_k8s_mongodsb.go
+!/restapi/impl
+/models/*
