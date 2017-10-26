@@ -73,7 +73,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>com.emc.ocopea.util</groupId>
+            <groupId>utilities</groupId>
             <artifactId>${mongo.executables.artifactId}</artifactId>
             <version>${mongo.executables.version}</version>
     	    <classifier>mongo</classifier>
@@ -81,14 +81,14 @@
         </dependency>
 
         <dependency>
-            <groupId>com.emc.ocopea.util</groupId>
+            <groupId>utilities</groupId>
             <artifactId>${mongo.executables.artifactId}</artifactId>
             <version>${mongo.executables.version}</version>
     	    <classifier>mongorestore</classifier>
 	        <type>bin</type>
         </dependency>
         <dependency>
-            <groupId>com.emc.ocopea.util</groupId>
+            <groupId>utilities</groupId>
             <artifactId>${mongo.executables.artifactId}</artifactId>
             <version>${mongo.executables.version}</version>
     	    <classifier>mongodump</classifier>
@@ -99,9 +99,12 @@
 
     <repositories>
         <repository>
-            <id>ocopea-dependencies</id>
-            <name>dependencies</name>
-            <url>https://raw.githubusercontent.com/ocopea/artifactory/repository/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-ocopea-central</id>
+            <name>bintray</name>
+            <url>https://dl.bintray.com/ocopea/central</url>
         </repository>
     </repositories>
 
