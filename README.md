@@ -19,14 +19,14 @@ taking a service copy using `mongodump` and `mongorestore`.
 The easiest and the recommended way to run the mongodsb is by using the Ocopea 
 [Kubernetes deployer](https://github.com/ocopea/kubernetes)
 using the `deploy-mongodsb` command.
-for example for running the dsb on minikube into a namespace called "testing":
+for example for running the DSB on minikube into a namespace called "testing":
 
 ```
 $ go run deployer.go deploy-mongodsb -namespace=testing -local-cluster-ip=$(minikube ip)
 ```
 
 If you wish to run the container yourself using Kubernetes deployment all you have to do is make sure you supply 
-Kubernetes credentials if required using both environment variables: K8S_USERNAME, K8S_PASSWORD.
+Kubernetes credentials if required using both environment variables: `K8S_USERNAME, K8S_PASSWORD`.
 
 Once running you can attach the DSB to an Ocopea site using the site config screen in the UI, or directly via the Ocopea API.
 
@@ -54,5 +54,6 @@ To run end to end tests on a Kubernetes cluster use the
 
 ## Contribution
 
-For contributing, see Ocopea [developer guidelines](https://github.com/ocopea/documentation/docs/guidance.md).
+* [Contributing to Ocopea](https://github.com/ocopea/documentation/blob/master/docs/contributing.md)
+* [Ocopea Developer Guidelines](https://github.com/ocopea/documentation/blob/master/docs/guidelines.md)
 
